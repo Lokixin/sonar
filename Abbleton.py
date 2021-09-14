@@ -31,7 +31,7 @@ class Abbleton(Set):
         self.currentTrack = self.getTrack(TRACK_NAME)
 
 
-    def getTrack(trackname):
+    def getTrack(self, trackname):
         """ Gets the track named as TRACK_NAME
 
         If no track is found the program would exit
@@ -53,7 +53,7 @@ class Abbleton(Set):
             exit()
             
             
-    def playSong(songName):
+    def playSong(self, songName):
         """ Plays the song which title's matches the songName
 
         Attributes
