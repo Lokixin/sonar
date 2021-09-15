@@ -4,27 +4,37 @@ This class is mainly a TCP Server listening to the tracktor broadcast. It would 
 the song information provided by the Tracktor software ( hopefully :D ). 
 """
 
-import socketserver
+from traktor_nowplaying import Listener
+from constants import BASE_DIR
 
-class Tracktor(socketserver.BaseRequestHandler):
 
+class Tracktor():
+    """
+    The Traktor class is responsible of listening to the Traktor software
+    broadcast. From that broadcast, it shall extract the song's title, duration
+    and elapsed time. Also it must write it into a file, so the Ableton class 
+    knwo which song has to play next.
+
+    Attributes
+    ----------
+    listener : Listener
+        Http server socket listening to Traktor broadcast data.
+
+    Methods
+    -------
+    start() -> None
+        Starts the server
+    """
+    
     def __init__(self):
-        super().__init__()
 
-    def handle(self):
-        # self.request is the TCP socket connected to the client
-        self.data = self.request.recv(1024).strip()
-        print("{} wrote:".format(self.client_address[0]))
-        print(self.data)
-        # just send back the same data, but upper-cased
-        self.request.sendall(self.data.upper())
+        self.listener = Listener(
+            port=8000, 
+            quiet=False, 
+            outfile='/files/sample.txt', 
+            output_format='{{title}}'
+        )
 
-
-if __name__ == "__main__":
-    HOST, PORT = "localhost", 8000
-
-    # Create the server, binding to localhost on port 9999
-    with socketserver.TCPServer((HOST, PORT), Tracktor) as server:
-        # Activate the server; this will keep running until you
-        # interrupt the program with Ctrl-C
-        server.serve_forever()
+    
+    def start(self):
+        self.listener.start()

@@ -62,12 +62,14 @@ class Abbleton(Set):
             Name of the song to be played
         """
         for clip in self.currentTrack:
-            if clip.name == songName:
-                clip.play()
-                print(f"[ABBLETON]: Clip being played: {songName}")
-                break
+            if clip is not None:
+                if clip.name == songName:
+                    clip.play()
+                    print(f"[ABBLETON]: Clip being played: {songName}")
+                    break
         else:
+            #TODO Deal with no clip found scenario. Now it only prints an error message.
             print(f"[ABBLETON]: Clip {songName} not found. We're screwed.")
                 
 
-        #TODO Deal with no clip found scenario. Now it only prints an error message.
+        
