@@ -63,7 +63,7 @@ class Abbleton(Set):
         """
         for clip in self.currentTrack:
             if clip is not None:
-                if clip.name == songName:
+                if songName in clip.name:
                     clip.play()
                     print(f"[ABBLETON]: Clip being played: {songName}")
                     break
