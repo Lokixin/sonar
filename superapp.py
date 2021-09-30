@@ -14,7 +14,7 @@ def home():
     return jsonify({"msg": "ok"}), 200
 
 
-@app.route("/deckLoaded/<deck>", metods=["POST", "GET"])
+@app.route("/deckLoaded/<deck>", methods=["POST", "GET"])
 def deckLoaded(deck):
     try:
         print(request.data)
@@ -45,7 +45,7 @@ def deckLoaded(deck):
         return jsonify({"error": "Internal server error"}), 500
 
 
-@app.route("/updateDeck/<deck>", metods=["POST", "GET"])
+@app.route("/updateDeck/<deck>", methods=["POST", "GET"])
 def updateDeck(deck):
     try:
         print(request.data)
