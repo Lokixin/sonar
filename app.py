@@ -57,7 +57,7 @@ def deckLoaded(deck):
         }
     
         requests.post(
-            f"{EXTERNAL_API}/deckloaded",
+            f"{EXTERNAL_API}/deckLoaded/{deck}",
             json=song_data
         )
 
@@ -99,7 +99,7 @@ def updateDeck(deck):
         }
     
         requests.post(
-            f"{EXTERNAL_API}/updateDeck",
+            f"{EXTERNAL_API}/updateDeck/{deck}",
             json=song_data
         )
 
