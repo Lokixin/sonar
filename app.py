@@ -21,13 +21,13 @@ def home():
     return jsonify({"msg": "ok"}), 200
 
 
-@app.route("/updateChannel/<channel>")
+@app.route("/updateChannel/<channel>", methods=["POST", "GET"])
 def updateChannel(channel):
     print(request.data)
     return jsonify({"msg": "ok"}), 200
 
 
-@app.route("/deckLoaded/<deck>")
+@app.route("/deckLoaded/<deck>", methods=["POST", "GET"])
 def deckLoaded(deck):
     try:
         print(request.data)
@@ -69,7 +69,7 @@ def deckLoaded(deck):
         return jsonify({"error": "Internal server error"}), 500
 
 
-@app.route("/updateDeck/<deck>")
+@app.route("/updateDeck/<deck>", methods=["POST", "GET"])
 def updateDeck(deck):
     try:
         print(request.data)
@@ -111,7 +111,7 @@ def updateDeck(deck):
         return jsonify({"error": "Internal server error"}), 500
 
 
-@app.route("/updateMasterClock")
+@app.route("/updateMasterClock", methods=["POST", "GET"])
 def updateMasterClock():
     print(request.data)
     return jsonify({"msg": "ok"}), 200
