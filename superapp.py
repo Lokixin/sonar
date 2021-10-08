@@ -4,11 +4,9 @@ It listens to the events send by app.py and communicates with
 Abbleton depending on the information provided by Traktor.
 """
 import logging
-import os
-import sys
+import subprocess
 from pathlib import Path
 from flask import Flask, request, jsonify
-from Abbleton import Abbleton
 from src.ai_dj import AiDj
 
 
@@ -17,7 +15,7 @@ TIME_TH = 15
 app = Flask(__name__)
 # CREATION OF THE AiDj OBJECT
 
-abbletonController = Abbleton()
+
 
 data_dir = Path("./data")
 aidj = AiDj(data_dir.joinpath("main_clean_tracklist.csv"),
@@ -87,7 +85,10 @@ def updateDeck(deck):
         if (trackLength - elapsedTime) < TIME_TH:
             aidj.add_track(track_name = title, dj = "human")
             next_track_name = aidj.select_and_add_next_track()
-            abbletonController.playSong(next_track_name)
+            proc = subprocess.Popen(["py", "playSong.py", next_track_name])
+            stdout, stderr = proc.communicate()
+            if stdout == "0" and stderr != "-1":
+                print("Subprocess executed successfuly")
 
         print(f"BPM: {bpm}. TITLE: {title}. TRACK LENGTH: {trackLength}. ELAPSED TIME: {elapsedTime}")
         return jsonify({"msg": "ok"}), 200
