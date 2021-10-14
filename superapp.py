@@ -37,9 +37,8 @@ def deckLoaded(deck):
         global trackLength
         global title
         elapsedTime = None
-
         bpm = None
-        elapsedTime = None
+
 
         if received_data: 
             if 'bpm' in received_data and received_data["bpm"]:
@@ -48,7 +47,8 @@ def deckLoaded(deck):
             if 'title' in received_data and received_data["title"]:
                 title = received_data["title"]
 
-            if 'trackLength' in received_data and str(received_data["trackLength"]).isnumeric():
+            if 'trackLength' in received_data and received_data["trackLength"] != None:
+                print("[SUPERAPP]: trackLength received: " + trackLength)
                 trackLength = received_data["trackLength"]
 
             if "elapsedTime" in received_data and received_data["elapsedTime"] != None: 
