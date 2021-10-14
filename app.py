@@ -79,25 +79,14 @@ def updateDeck(deck):
         print("\n[APP]: <------- JSON DATA -------> in updateDeck\n")
         print(received_data)
 
-        bpm = None
-        title = None
-        trackLength = None
         elapsedTime = None
 
         if received_data: 
-            if 'bpm' in received_data:
-                bpm = received_data["bpm"]
-            if 'title' in received_data:
-                title = received_data["title"]
-            if 'trackLength' in received_data:
-                trackLength = received_data["trackLength"]
+
             if "elapsedTime" in received_data: 
                 elapsedTime = received_data["elapsedTime"]
 
         song_data = {
-            "bpm": bpm,
-            "title": title,
-            "trackLength": trackLength,
             "elapsedTime": elapsedTime
         }
     

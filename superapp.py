@@ -36,6 +36,7 @@ def deckLoaded(deck):
 
         global trackLength
         global title
+        elapsedTime = None
 
         bpm = None
         elapsedTime = None
@@ -50,7 +51,7 @@ def deckLoaded(deck):
             if 'trackLength' in received_data and str(received_data["trackLength"]).isnumeric():
                 trackLength = received_data["trackLength"]
 
-            if "elapsedTime" in received_data and received_data["elapsedTime"]: 
+            if "elapsedTime" in received_data and received_data["elapsedTime"] != None: 
                 elapsedTime = received_data["elapsedTime"]
 
         print(f"BPM: {bpm}. TITLE: {title}. TRACK LENGTH: {trackLength}. ELAPSED TIME: {elapsedTime}")
@@ -74,14 +75,18 @@ def updateDeck(deck):
 
         elapsedTime = None
 
+
         if received_data: 
 
-            if "elapsedTime" in received_data and received_data["elapsedTime"]: 
+            if "elapsedTime" in received_data and received_data["elapsedTime"] != None: 
                 elapsedTime = received_data["elapsedTime"]
-        print(f"Track Length: {trackLength}. Elapsed Time: {elapsedTime}")
+
+            print(f"Track Length: {trackLength}. Elapsed Time: {elapsedTime}")
         
-        if trackLength and elapsedTime:
+        if trackLength != None and elapsedTime != None:
+
             if (trackLength - elapsedTime) < TIME_TH:
+                print("[SUPERAPP]: STARTING THE AI ...")
                 aidj.add_track(track_name = title, dj = "human")
                 next_track_name = aidj.select_and_add_next_track()
                 proc = subprocess.Popen(["py", "playSong.py", next_track_name])
@@ -89,7 +94,7 @@ def updateDeck(deck):
                 if stdout == "0" and stderr != "-1":
                     print("Subprocess executed successfuly")
 
-        print(f"BPM: {bpm}. TITLE: {title}. TRACK LENGTH: {trackLength}. ELAPSED TIME: {elapsedTime}")
+        print(f"BPM: esto me da igual. TITLE: {title}. TRACK LENGTH: {trackLength}. ELAPSED TIME: {elapsedTime}")
         return jsonify({"msg": "ok"}), 200
 
     except Exception:
