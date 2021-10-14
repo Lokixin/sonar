@@ -11,6 +11,8 @@ from src.ai_dj import AiDj
 
 
 TIME_TH = 15
+trackLength = None
+
 
 app = Flask(__name__)
 # CREATION OF THE AiDj OBJECT
@@ -36,20 +38,23 @@ def deckLoaded(deck):
         print(request.data)
 
         received_data = request.get_json()
+        global trackLength
 
         bpm = None
         title = None
-        trackLength = None
         elapsedTime = None
 
         if received_data: 
-            if 'bpm' in received_data:
+            if 'bpm' in received_data and received_data["bpm"]:
                 bpm = received_data["bpm"]
-            if 'title' in received_data:
+
+            if 'title' in received_data and received_data["title"]:
                 title = received_data["title"]
-            if 'trackLength' in received_data:
+
+            if 'trackLength' in received_data and str(received_data["trackLength"]).isnumeric():
                 trackLength = received_data["trackLength"]
-            if "elapsedTime" in received_data: 
+
+            if "elapsedTime" in received_data and received_data["elapsedTime"]: 
                 elapsedTime = received_data["elapsedTime"]
 
         print(f"BPM: {bpm}. TITLE: {title}. TRACK LENGTH: {trackLength}. ELAPSED TIME: {elapsedTime}")
@@ -67,21 +72,18 @@ def updateDeck(deck):
         print(request.data)
 
         received_data = request.get_json()
+        global trackLength
 
         bpm = None
         title = None
-        trackLength = None
+
         elapsedTime = None
 
         if received_data: 
-            if 'bpm' in received_data:
-                bpm = received_data["bpm"]
-            if 'title' in received_data:
-                title = received_data["title"]
-            if 'trackLength' in received_data:
-                trackLength = received_data["trackLength"]
-            if "elapsedTime" in received_data: 
+
+            if "elapsedTime" in received_data and received_data["elapsedTime"]: 
                 elapsedTime = received_data["elapsedTime"]
+        print(f"Track Length: {trackLength}. Elapsed Time: {elapsedTime}")
         if (trackLength - elapsedTime) < TIME_TH:
             aidj.add_track(track_name = title, dj = "human")
             next_track_name = aidj.select_and_add_next_track()
