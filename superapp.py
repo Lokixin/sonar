@@ -82,13 +82,15 @@ def updateDeck(deck):
             if "elapsedTime" in received_data and received_data["elapsedTime"]: 
                 elapsedTime = received_data["elapsedTime"]
         print(f"Track Length: {trackLength}. Elapsed Time: {elapsedTime}")
-        if (trackLength - elapsedTime) < TIME_TH:
-            aidj.add_track(track_name = title, dj = "human")
-            next_track_name = aidj.select_and_add_next_track()
-            proc = subprocess.Popen(["py", "playSong.py", next_track_name])
-            stdout, stderr = proc.communicate()
-            if stdout == "0" and stderr != "-1":
-                print("Subprocess executed successfuly")
+        
+        if trackLength and elapsedTime:
+            if (trackLength - elapsedTime) < TIME_TH:
+                aidj.add_track(track_name = title, dj = "human")
+                next_track_name = aidj.select_and_add_next_track()
+                proc = subprocess.Popen(["py", "playSong.py", next_track_name])
+                stdout, stderr = proc.communicate()
+                if stdout == "0" and stderr != "-1":
+                    print("Subprocess executed successfuly")
 
         print(f"BPM: {bpm}. TITLE: {title}. TRACK LENGTH: {trackLength}. ELAPSED TIME: {elapsedTime}")
         return jsonify({"msg": "ok"}), 200
