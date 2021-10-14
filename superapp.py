@@ -31,7 +31,8 @@ aidj = AiDj(data_dir.joinpath("main_clean_tracklist.csv"),
 def deckLoaded(deck):
     try:
         received_data = request.get_json()
-        print(request.data)
+        print("\n[SUPERAPP]: <------- JSON DATA -------> in deckLoaded\n")
+        print(received_data)
 
         global trackLength
         global title
@@ -65,7 +66,8 @@ def deckLoaded(deck):
 def updateDeck(deck):
     try:
         received_data = request.get_json()
-        print(request.data)
+        print("\n[SUPERAPP]: <------- JSON DATA -------> in updateDeck\n")
+        print(received_data)
 
         global trackLength
         global title

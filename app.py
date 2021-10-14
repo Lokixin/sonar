@@ -32,8 +32,6 @@ def updateChannel(channel):
 @app.route("/deckLoaded/<deck>", methods=["POST", "GET"])
 def deckLoaded(deck):
     try:
-        
-
         received_data = request.get_json()
         print("\n[APP]: <------- JSON DATA -------> in deckLoaded\n")
         print(received_data)
@@ -77,7 +75,6 @@ def deckLoaded(deck):
 def updateDeck(deck):
     try:
         
-
         received_data = request.get_json()
         print("\n[APP]: <------- JSON DATA -------> in updateDeck\n")
         print(received_data)
