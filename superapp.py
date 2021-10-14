@@ -12,7 +12,7 @@ from src.ai_dj import AiDj
 
 TIME_TH = 15
 trackLength = None
-
+title = None
 
 app = Flask(__name__)
 # CREATION OF THE AiDj OBJECT
@@ -39,9 +39,9 @@ def deckLoaded(deck):
 
         received_data = request.get_json()
         global trackLength
+        global title
 
         bpm = None
-        title = None
         elapsedTime = None
 
         if received_data: 
@@ -73,9 +73,7 @@ def updateDeck(deck):
 
         received_data = request.get_json()
         global trackLength
-
-        bpm = None
-        title = None
+        global title
 
         elapsedTime = None
 
