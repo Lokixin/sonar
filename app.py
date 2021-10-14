@@ -23,16 +23,20 @@ def home():
 
 @app.route("/updateChannel/<channel>", methods=["POST", "GET"])
 def updateChannel(channel):
-    print(request.data)
+
+    print("\n[APP]: <------- JSON DATA -------> in updateChannel\n")
+    print(request.get_json())
     return jsonify({"msg": "ok"}), 200
 
 
 @app.route("/deckLoaded/<deck>", methods=["POST", "GET"])
 def deckLoaded(deck):
     try:
-        print(request.data)
+        
 
         received_data = request.get_json()
+        print("\n[APP]: <------- JSON DATA -------> in deckLoaded\n")
+        print(received_data)
 
         bpm = None
         title = None
@@ -72,9 +76,11 @@ def deckLoaded(deck):
 @app.route("/updateDeck/<deck>", methods=["POST", "GET"])
 def updateDeck(deck):
     try:
-        print(request.data)
+        
 
         received_data = request.get_json()
+        print("\n[APP]: <------- JSON DATA -------> in updateDeck\n")
+        print(received_data)
 
         bpm = None
         title = None
@@ -113,7 +119,8 @@ def updateDeck(deck):
 
 @app.route("/updateMasterClock", methods=["POST", "GET"])
 def updateMasterClock():
-    print(request.data)
+    print("\n[APP]: <------- JSON DATA -------> in updateMasterClock\n")
+    print(request.get_json())
     return jsonify({"msg": "ok"}), 200
 
 

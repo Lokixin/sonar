@@ -26,18 +26,13 @@ aidj = AiDj(data_dir.joinpath("main_clean_tracklist.csv"),
             )
 
 
-@app.route("/", methods=["POST", "GET"])
-def home():
-    print(request.data)
-    return jsonify({"msg": "ok"}), 200
-
 
 @app.route("/deckLoaded/<deck>", methods=["POST", "GET"])
 def deckLoaded(deck):
     try:
+        received_data = request.get_json()
         print(request.data)
 
-        received_data = request.get_json()
         global trackLength
         global title
 
@@ -69,9 +64,9 @@ def deckLoaded(deck):
 @app.route("/updateDeck/<deck>", methods=["POST", "GET"])
 def updateDeck(deck):
     try:
+        received_data = request.get_json()
         print(request.data)
 
-        received_data = request.get_json()
         global trackLength
         global title
 
